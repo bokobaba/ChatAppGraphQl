@@ -2,13 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace ChatAppGraphQl.Model {
-    public class User {
+    public class Message {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        public string Text { get; set; }
+        public DateTime TimeStamp { get; set; }
+
         public string Username { get; set; }
-        public DateTime LastSeen { get; set; }
-        public DateTime LastTyped { get; set; }
-        public IEnumerable<Message> Messages { get; set; }
+        public User User { get; set; }
     }
 }
