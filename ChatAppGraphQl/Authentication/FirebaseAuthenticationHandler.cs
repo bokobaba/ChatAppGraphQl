@@ -30,7 +30,7 @@ namespace ChatAppGraphQl.Authentication {
             }
 
             string bearerToken = authHeader.ToString();
-            if (bearerToken == null || !bearerToken.StartsWith("Bearer")) {
+            if (bearerToken == null || !bearerToken.StartsWith("Bearer ") || bearerToken.Length < 1) {
                 return AuthenticateResult.Fail("Invalid scheme");
             }
 

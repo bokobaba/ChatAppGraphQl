@@ -3,7 +3,6 @@ using AutoMapper.QueryableExtensions;
 using ChatAppGraphQl.Queries.CommentQueries;
 using ChatAppGraphQl.Queries.UserQueries;
 using ChatAppGraphQl.Queries.SearchQueries;
-using HotChocolate.Data.Projections.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChatAppGraphQl.Data {
@@ -18,7 +17,8 @@ namespace ChatAppGraphQl.Data {
         [UsePaging(IncludeTotalCount = true, DefaultPageSize = 5)]
         [UseProjection]
         [UseFiltering]
-        public IEnumerable<ISearchResult> Search(string term,
+        public IEnumerable<ISearchResult> Search(
+            string term,
             [ScopedService] ApplicationDbContext context) {
             IQueryable<ISearchResult> messages = context.Comments
                 //.Where(m => m.Text.Contains(term, StringComparison.OrdinalIgnoreCase))

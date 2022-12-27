@@ -5,8 +5,8 @@ using ChatAppGraphQl.Services.PostRepository;
 using HotChocolate.AspNetCore.Authorization;
 
 namespace ChatAppGraphQl.Data.PostData {
-    [Authorize]
     [ExtendObjectType(typeof(Mutation))]
+    [Authorize]
     public class PostMutation {
         private readonly IPostRepository _repository;
 

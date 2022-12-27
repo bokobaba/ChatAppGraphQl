@@ -6,7 +6,6 @@ using HotChocolate.AspNetCore.Authorization;
 namespace ChatAppGraphQl.Data.UserData
 {
     [ExtendObjectType(typeof(Query))]
-    [Authorize]
     public class UserQuery
     {
         private readonly IMapper _mapper;

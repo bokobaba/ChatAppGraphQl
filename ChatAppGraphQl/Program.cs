@@ -31,14 +31,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
-//Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "./firebase_config.json");
-//builder.Services.AddSingleton(FirebaseApp.Create());
 builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions() {
     Credential = GoogleCredential.FromJson(builder.Configuration["FirebaseConfig"])
 }));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddScheme<AuthenticationSchemeOptions, FirebaseAuthenticationHandler>(
         JwtBearerDefaults.AuthenticationScheme, (o) => { });
+
 
 builder.Services.AddSingleton<IAuthorizationHandler, AdminHandler>();
 builder.Services.AddAuthorization(o => o.AddPolicy("IsAdmin", p =>
@@ -97,8 +96,9 @@ builder.Services.AddGraphQLServer()
         )
         .AddSorting()
         .AddProjections()
+        .AddFluentValidation(o => o.UseDefaultErrorMapper())
         .AddAuthorization()
-        .AddFluentValidation(o => o.UseDefaultErrorMapper());
+;
 
 builder.Services.AddInMemorySubscriptions();
 

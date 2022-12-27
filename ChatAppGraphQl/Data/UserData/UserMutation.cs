@@ -18,12 +18,14 @@ namespace ChatAppGraphQl.Data.UserData
             _repository = repository;
         }
 
+        //[Authorize]
         [UseUser]
         public async Task<UserMutationType> CreateUser(
             [UseFluentValidation, UseValidator<UserInputValidator>] UserInput user,
             [User] string firebaseId
         ) => await _repository.Create(firebaseId, user);
 
+        //[Authorize]
         [UseUser]
         public async Task<UserMutationType> UpdateLastSeen(
             [User] string firebaseId

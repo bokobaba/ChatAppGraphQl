@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using ChatAppGraphQl.Queries.PostQueries;
-using HotChocolate.AspNetCore.Authorization;
 
 namespace ChatAppGraphQl.Data.PostData {
     [ExtendObjectType(typeof(Query))]
