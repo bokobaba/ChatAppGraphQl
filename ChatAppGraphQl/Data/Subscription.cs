@@ -1,5 +1,5 @@
-﻿using ChatAppGraphQl.DTOs.MessageDtos;
-using ChatAppGraphQl.DTOs.UserDtos;
+﻿using ChatAppGraphQl.Queries.CommentQueries;
+using ChatAppGraphQl.Queries.UserQueries;
 using HotChocolate.Execution;
 using HotChocolate.Subscriptions;
 
@@ -8,7 +8,7 @@ namespace ChatAppGraphQl.Data {
         public const string USER_TYPING = "User_Typing";
 
         [Subscribe]
-        public GetMessageDto MessagePosted([EventMessage] GetMessageDto message) => message;
+        public CommentType CommentPosted([EventMessage] CommentType message) => message;
 
         //[Subscribe]
         //public GetUserDto UserTyping(string username, [EventMessage] GetUserDto user) {
@@ -16,11 +16,11 @@ namespace ChatAppGraphQl.Data {
         //}
 
         [SubscribeAndResolve]
-        public async IAsyncEnumerable<GetUserDto> UserTyping(string username, 
+        public async IAsyncEnumerable<UserType> UserTyping(string username, 
             [Service] ITopicEventReceiver eventReceiver) {
-            ISourceStream stream = await eventReceiver.SubscribeAsync<string, GetUserDto>(USER_TYPING);
+            ISourceStream stream = await eventReceiver.SubscribeAsync<string, UserType>(USER_TYPING);
 
-            await foreach (GetUserDto data in stream.ReadEventsAsync()) {
+            await foreach (UserType data in stream.ReadEventsAsync()) {
                 if (username != data.Username)
                     yield return data;
             }
